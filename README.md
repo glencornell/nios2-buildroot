@@ -219,3 +219,28 @@ $(eval $(call asciidoc-document))
 ```
 
 * run _make foo_
+
+# Create a Downloadable Image
+
+First, you need to install quartus 2 FPGA development environment from
+Intel's website.
+
+export QUARTUS_ROOTDIR=/home/glen/intelFPGA_lite/17.0/quartus
+export SOPC_KIT_NIOS2=/home/glen/intelFPGA_lite/17.0/nios2eds
+cd output/images
+elf2flash --base=0x0 --input=vmlinux --end=0xfffffff --reset=0x0 --boot=$SOPC_KIT_NIOS2/components/altera_nios2/boot_loader_cfi.srec
+
+At this point, you should have converted the vmlinux file into a
+Motorola S-Record:
+
+ls -l vmlinux.flash
+
+Then convert Linux SREC to HEX format
+../../output/host/usr/bin/nios2-linux-objcopy -O ihex vmlinux.flash vmlinux.hex
+
+Root filesystem generated from "building root filesystem" above also
+has to be converted to hex format.
+
+at <Buildroot_top_directory>/output/images, convert JFFS2 to HEX format.
+
+../../output/host/usr/bin/nios2-linux-objcopy -O ihex -I binary rootfs.jffs2 rootfs.hex
