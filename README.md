@@ -15,3 +15,6 @@ RocketBoards
 instruction](https://rocketboards.org/foswiki/Documentation/AlteraMAX1010M50RevCDevelopmentKitLinuxSetup).
 I chose to extend the project by actually pulling together the three
 projects together as a github project.
+
+* [Buildroot-Submodule Instructions](doc/buildroot-submodule.md)
+* [Image Creation Process](doc/max10-image-conversion.md)
